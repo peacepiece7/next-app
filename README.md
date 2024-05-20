@@ -49,13 +49,13 @@ environment:
 
 ### schema 생성 및 데이터베이스 생성
 
-- docker desktop 실행
-- phAdmin 실행
-  ㄴ> Register -> Server 생성 .env DATABASE_URL 참고하여 생성
-- prisma/schema.prisma 업데이트
-  ㄴ> `npx prisma db push` 실행
+- docker desktop 실행, pgAdmin 실행
+- Register -> Server 생성 .env DATABASE_URL 참고하여 생성
+- https://www.prisma.io/docs/orm/prisma-schema/overview 여기 참고해서 prisma/schema.prisma에 schema 작성
+- `npx prisma db push` 로 데이터베이스 생성
+- pgAdmin schema refresh하고 tables 확인
 
-pgAdmin schema refresh하고 tables 확인
+<img src="./public/1.png" />
 
 ## Next Auth
 
