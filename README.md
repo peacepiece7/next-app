@@ -60,3 +60,60 @@ environment:
 ## Next Auth
 
 `npm i next-auth @prisma/client @next-auth/prisma-adapter`
+
+`src/app/api/auth/[...nextauth]/route.ts`에 다음 코드 추가
+
+```ts
+/**
+ * @note Next Auth 설정 참고 링크
+ * @see {@link https://next-auth.js.org/getting-started/example}
+ * @see {@link https://next-auth.js.org/providers/credentials}
+ */
+import GoogleProvider from 'next-auth/providers/google'
+import { NextAuthOptions } from 'next-auth'
+import { PrismaAdapter } from '@next-auth/prisma-adapter'
+import { PrismaClient } from '@prisma/client'
+import CredentialsProvider from 'next-auth/providers/credentials'
+
+const prisma = new PrismaClient()
+
+export const authOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma),
+  secret: process.env.AUTH_SECRET,
+  providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
+    CredentialsProvider({
+      name: 'Credentials',
+      credentials: {
+        username: {
+          label: 'Username',
+          type: 'text',
+          placeholder: 'Enter a your name',
+        },
+        password: {
+          label: 'Password',
+          type: 'password',
+          placeholder: 'Enter a your password',
+        },
+      },
+      async authorize(credentials, req) {
+        const user = { id: '1', name: 'J Smith', email: 'jsmith@example.com' }
+        if (user) {
+          return user
+        } else {
+          return null
+        }
+      },
+    }),
+  ],
+  session: {
+    strategy: 'jwt', // jwt | database 로 세선 저장 전략 설정
+  },
+}
+```
+
+- `import { SessionProvider } from 'next-auth/react'`도 클라언트 컴포넌트 최상단에 추가
+- `import { signIn, signOut, useSession } from 'next-auth/react'`으로 클라이언트에서 사용

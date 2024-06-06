@@ -31,6 +31,11 @@ export const NavBar = () => {
         <div className='hidden sm:block'>
           <NavItem />
         </div>
+
+        {/* nav-items mobile */}
+        <div className={'block sm:hidden'}>
+          {menu === false ? null : <NavItem />}
+        </div>
       </div>
     </nav>
   )
