@@ -10,6 +10,8 @@ export async function middleware(req: NextRequest) {
   const session = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
   const pathname = req.nextUrl.pathname
 
+  console.log('MIDDLEWARE : ', session)
+
   // user 페이지는 로그인이 되어있어야 접근 가능
   if (pathname.startsWith('/user') && !session) {
     const url = new URL('/api/auth/signin', req.url)
@@ -28,6 +30,9 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(url)
   }
 
+  /**
+   * @todo 로그인 실패시 여기서 처리하고있음 따로 매시지를 보내주는게 좋을듯
+   */
   if (req.nextUrl.pathname.startsWith('/api')) {
     return new NextResponse('Authentication Error', { status: 401 })
   }
@@ -37,5 +42,5 @@ export async function middleware(req: NextRequest) {
 
 // 로그인을 해야하는 경우만 미들웨어 사용
 export const config = {
-  matcher: ['/admin/:path*', '/user'],
+  matcher: ['/admin/:path*', '/user', '/auth/:path*'],
 }

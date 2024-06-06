@@ -1,10 +1,10 @@
 import GoogleProvider from 'next-auth/providers/google'
 import { NextAuthOptions } from 'next-auth'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
-import { PrismaClient } from '@prisma/client'
 import CredentialsProvider from 'next-auth/providers/credentials'
-
-const prisma = new PrismaClient()
+import bcrypt from 'bcryptjs'
+import prisma from '@/libs/prismadb'
+import { log } from 'console'
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -28,6 +28,11 @@ export const authOptions: NextAuthOptions = {
           type: 'text',
           placeholder: 'Enter a your name',
         },
+        email: {
+          label: 'Email',
+          type: 'email',
+          placeholder: 'Enter a your email',
+        },
         password: {
           label: 'Password',
           type: 'password',
@@ -35,27 +40,35 @@ export const authOptions: NextAuthOptions = {
         },
       },
       async authorize(credentials, req) {
-        /**
-         * @todo credentials에서 username, password로 db에서 유저 찾아서 리턴하도록 로직 수정 해야함
-         */
-        const user = {
-          id: '1',
-          name: 'J Smith',
-          email: 'jsmith@example.com',
-          role: credentials?.username.includes('admin') ? 'admin' : 'user',
+        if (!credentials?.email || !credentials?.password) {
+          throw new Error('Invalid credentials')
         }
-        if (user) {
-          // Any object returned will be saved in `user` property of the JWT
-          return user
-        } else {
-          // If you return null then an error will be displayed advising the user to check their details.
-          return null
+        const user = await prisma.user.findUnique({
+          where: {
+            email: credentials.email,
+          },
+        })
 
-          // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+        if (!user || !user?.hashedPassword) {
+          throw new Error('Invalid credentials')
         }
+
+        const isCorrectPassword = await bcrypt.compare(
+          credentials.password,
+          user.hashedPassword
+        )
+
+        if (!isCorrectPassword) {
+          throw new Error('Invalid credentials')
+        }
+
+        return user
       },
     }),
   ],
+  pages: {
+    signIn: '/auth/login',
+  },
   jwt: {
     maxAge: 60 * 60 * 24 * 7, // 1 week
     secret: process.env.NEXTAUTH_SECRET, // 이것도  default로 process.env.NEXTAUTH_SECRET를 사용함
@@ -68,11 +81,11 @@ export const authOptions: NextAuthOptions = {
     // signIn, signOut의 트리거이다.
     async jwt({ token: jwtToken, user }) {
       // user가 있으면 (로그인 시) 사용자 정보를 토큰에 추가
-      if (user) {
-        return { ...jwtToken, ...user }
-      }
+      // if (user) {
+      return { ...jwtToken, ...user }
+      // }
       // 그렇지 않으면 기존 토큰 반환
-      return jwtToken
+      // return jwtToken
     },
     // 세션을 체크할 때 호출되는 콜백이다. /api/session에서 세션을 가져올 때 호출된다.
     // callbacks.jwt, useSession, getSession이 사용될 때 호출된다.

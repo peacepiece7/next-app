@@ -6,8 +6,9 @@ import { useCallback } from 'react'
 
 export const NavItem = ({ mobile }: { mobile?: boolean }) => {
   const { data: session, status } = useSession()
-  const handleSignout = useCallback(() => signOut(), [session?.user])
-  const handleSignin = useCallback(() => signIn(), [session?.user])
+  // const router = useRouter()
+  const handleSignout = () => signOut()
+  const handleSignin = () => signIn()
 
   return (
     <ul

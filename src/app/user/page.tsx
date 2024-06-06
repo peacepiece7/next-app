@@ -1,3 +1,9 @@
-export default function UserPage() {
-  return <div>사용자 페이지</div>
+import { authOptions } from '@/service/nextAuth'
+import { getServerSession } from 'next-auth'
+
+export default async function UserPage() {
+  const session = await getServerSession(authOptions)
+
+  console.log('session : ', session)
+  return <div>로그인된 유저만 접근할 수 있는 페이지</div>
 }
