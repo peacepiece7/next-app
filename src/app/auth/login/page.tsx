@@ -10,7 +10,6 @@ import { useState } from 'react'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 
 export default function Login() {
-  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -26,12 +25,10 @@ export default function Login() {
   const onSubmit: SubmitHandler<FieldValues> = async (body) => {
     setIsLoading(true)
     try {
-      const data = await signIn('credentials', body)
-      alert('Login success')
-      router.push('/')
+      // TODO : signIn 함수가 undefined를 반환하는데, 설명이랑 다름
+      await signIn('credentials', { ...body })
     } catch (error) {
       alert('Login failed')
-      console.error(error)
     } finally {
       setIsLoading(false)
     }

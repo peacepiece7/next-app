@@ -26,7 +26,7 @@ export default function register() {
   const onSubmit: SubmitHandler<FieldValues> = async (body) => {
     setIsLoading(true)
     try {
-      const data = await axios.post('/api/register', body)
+      await axios.post('/api/register', body)
       alert('Register Success')
       router.push('/auth/login')
     } catch (error) {

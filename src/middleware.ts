@@ -10,8 +10,6 @@ export async function middleware(req: NextRequest) {
   const session = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
   const pathname = req.nextUrl.pathname
 
-  console.log('MIDDLEWARE : ', session)
-
   // user 페이지는 로그인이 되어있어야 접근 가능
   if (pathname.startsWith('/user') && !session) {
     const url = new URL('/api/auth/signin', req.url)
