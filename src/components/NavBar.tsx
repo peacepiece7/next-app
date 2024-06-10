@@ -2,10 +2,9 @@
 
 import { useState } from 'react'
 import { NavItem } from './NavItem'
-import { User } from '@prisma/client'
-
+import { TUser } from '@/types'
 interface NavbarProps {
-  currentUser: User | null
+  currentUser: TUser | null
 }
 
 export const NavBar = ({ currentUser }: NavbarProps) => {

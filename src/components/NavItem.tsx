@@ -1,12 +1,13 @@
 'use client'
 
+import { TUser } from '@/types'
 import { User } from '@prisma/client'
 import { signIn, signOut } from 'next-auth/react'
 import Link from 'next/link'
 
 interface NavItemProps {
   mobile?: boolean
-  currentUser?: User | null
+  currentUser?: TUser | null
 }
 
 export const NavItem = ({ mobile, currentUser }: NavItemProps) => {
