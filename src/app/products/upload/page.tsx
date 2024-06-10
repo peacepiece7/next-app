@@ -1,6 +1,8 @@
 'use client'
 import { Button } from '@/components/Button'
 import Container from '@/components/Container'
+import Heading from '@/components/Heading'
+import ImageUpload from '@/components/ImageUpload'
 import { Input } from '@/components/Input'
 import { useState } from 'react'
 import { FieldValues, useForm } from 'react-hook-form'
@@ -26,11 +28,22 @@ export default function UploadPage() {
     },
   })
 
+  const imageSrc = watch('imageSrc')
+  const setCustomValue = (id: string, value: any) => {
+    setValue(id, value)
+  }
+
   return (
     <Container>
       <div className='max-w-screen-lg mx-auto'>
         <form className='flex flex-col gap-8' onSubmit={() => {}}>
-          <h1></h1>
+          <Heading title='Product Upload' subtitle='upload your product' />
+          <ImageUpload
+            onChange={(value) => setCustomValue('imageSrc', value)}
+            value={imageSrc}
+          />
+
+          <hr />
           <Input
             id='title'
             label='Title'

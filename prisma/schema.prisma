@@ -53,9 +53,22 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  @@map("users")
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  userType    UserType @default(USER)
+  favoritedIds String[]
+  products Product[]
+
+  // TODO : @@map 사라졌는지 체크 필요
+  // @@map("users") 
 }
- 
+
+// TODO : 이거 내가 맘대로 만든거라서 나중에 수정해야함 
+enum UserType {
+  USER
+  ADMIN
+}
+
 model VerificationToken {
   identifier String
   token      String
@@ -63,4 +76,19 @@ model VerificationToken {
  
   @@unique([identifier, token])
   @@map("verificationtokens")
+}
+
+model Product {
+  id String @id @default(cuid())
+  title String
+  description String
+  imageSrc String
+  category String
+  userId String
+  price Int
+  latitude Float
+  longitude Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
