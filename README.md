@@ -117,3 +117,43 @@ export const authOptions: NextAuthOptions = {
 
 - `import { SessionProvider } from 'next-auth/react'`도 클라언트 컴포넌트 최상단에 추가
 - `import { signIn, signOut, useSession } from 'next-auth/react'`으로 클라이언트에서 사용
+
+# products upload 페이지
+
+cloudinary 사용
+
+`npm install next-cloudinary`
+
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME을 .env에 추가해줘야 동작함
+
+cloudinary로 이동
+
+- settings에서 upload presets 생성
+
+<img src="./public/2.png" />
+
+```tsx
+const uploadPreset = 'oimvse4k'
+export default function ImageUpload({ onChange, value }: ImageUploadProps) {
+  const handleUpload = (result: any) => {
+    onChange(result.info.secure_url)
+  }
+// ...나머지 로직
+```
+
+next.config.mjs에 다음 코드 추가
+
+```js
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https:',
+        hostname: 'res.cloudinary.com',
+        port: '',
+        pathname: '*',
+      },
+    ],
+  },
+}
+```
