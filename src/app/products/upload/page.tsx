@@ -29,6 +29,7 @@ export default function UploadPage() {
   })
 
   const imageSrc = watch('imageSrc')
+
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value)
   }

@@ -9,7 +9,7 @@ interface ImageUploadProps {
   value: string
 }
 
-const uploadPreset = 'asdasdasd'
+const uploadPreset = 'oimvse4k'
 export default function ImageUpload({ onChange, value }: ImageUploadProps) {
   const handleUpload = (result: any) => {
     onChange(result.info.secure_url)
