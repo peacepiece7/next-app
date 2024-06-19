@@ -23,6 +23,7 @@ services:
     environment:
       POSTGRES_USER: 'POSTGRES_USER_FOO'
       POSTGRES_PASSWORD: 'P@SSW0RD_FOO'
+      POSTGRES_HOST_AUTH_METHOD: 'trust'
     volumes:
       - ./data:/var/lib/postgresql/data
 ```
