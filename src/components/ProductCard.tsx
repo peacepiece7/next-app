@@ -1,11 +1,11 @@
 'use client'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import HeartButton from './HeartButton'
-import { TProduct, TUser } from '@/types'
-import dayjs from 'dayjs'
+import { HeartButton } from './HeartButton'
+import { TUser } from '@/types'
 import { fromNow } from '@/helpers/dayjs'
 
+type TProduct = any
 interface ProductCardProps {
   data: TProduct
   currentUser: TUser

@@ -6,25 +6,25 @@ import Container from '@/components/Container'
 import Heading from '@/components/Heading'
 import ImageUpload from '@/components/ImageUpload'
 import { Input } from '@/components/Input'
+import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { FieldValues, useForm } from 'react-hook-form'
+const KakaoMap = dynamic(() => import('@/components/KakaoMap'), { ssr: false })
 
 export default function UploadPage() {
   const [isLoading, setIsLoading] = useState(false)
   const {
     register,
-    handleSubmit,
     setValue,
     watch,
     formState: { errors },
-    reset,
   } = useForm<FieldValues>({
     defaultValues: {
       title: '',
       description: '',
       category: '',
       latitude: 33.5563,
-      longtitude: 126.79581,
+      longitude: 126.79581,
       imageSrc: '',
       price: 0,
     },
@@ -32,6 +32,8 @@ export default function UploadPage() {
 
   const imageSrc = watch('imageSrc')
   const category = watch('category')
+  const latitude = watch('latitude')
+  const longitude = watch('longitude')
 
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value)
@@ -91,7 +93,11 @@ export default function UploadPage() {
             ))}
           </div>
           <hr />
-
+          <KakaoMap
+            latitude={latitude}
+            longitude={longitude}
+            setCustomValue={setCustomValue}
+          />
           <Button label='상품 생성하기' />
         </form>
       </div>

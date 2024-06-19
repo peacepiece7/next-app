@@ -1,10 +1,8 @@
 import { DefaultSession } from 'next-auth'
+import { TUser } from './types'
 
 declare module 'next-auth' {
   interface Session {
-    user: {
-      id?: string
-      role?: string
-    } & DefaultSession['user']
+    user: TUser
   }
 }

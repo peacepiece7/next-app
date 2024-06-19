@@ -60,7 +60,6 @@ export const authOptions: NextAuthOptions = {
         if (!isCorrectPassword) {
           throw new Error('Invalid credentials\n code : AD003')
         }
-
         return user
       },
     }),
@@ -89,7 +88,7 @@ export const authOptions: NextAuthOptions = {
     // 세션을 체크할 때 호출되는 콜백이다. /api/session에서 세션을 가져올 때 호출된다.
     // callbacks.jwt, useSession, getSession이 사용될 때 호출된다.
     async session({ session, token: jwtToken }) {
-      session.user = jwtToken
+      // session.user = jwtToken
       return session
     },
   },

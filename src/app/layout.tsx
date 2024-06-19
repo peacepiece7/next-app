@@ -4,6 +4,7 @@ import { NavBar } from '@/components/NavBar'
 import getCurrentUser from '@/actions/getCurrentUser'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/service/nextAuth'
+import Script from 'next/script'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,8 +21,12 @@ export default async function RootLayout({
 
   return (
     <html lang='en'>
+      {/* <Script
+        type='text/javascript'
+        src='//dapi.kakao.com/v2/maps/sdk.js?appkey=d77f148e757e708a19a199e532a4b16a'
+      /> */}
       <body className={inter.className}>
-        <NavBar currentUser={session?.user as typeof currentUser} />
+        <NavBar currentUser={session?.user!} />
         <div>{children}</div>
       </body>
     </html>
