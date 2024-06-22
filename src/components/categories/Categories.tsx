@@ -6,7 +6,7 @@ import { MdOutlineVilla } from 'react-icons/md'
 import { TbBeach, TbMountain, TbPool } from 'react-icons/tb'
 import { CategoryBox } from './CategoryBox'
 
-export const categories = [
+export const CATEGORIES = [
   {
     label: '디지털기기',
     path: 'digital',
@@ -63,7 +63,7 @@ export const Categories = () => {
 
   return (
     <div className='flex flex-row items-center justify-between pt-4 overflow-x-auto'>
-      {categories.map((item) => (
+      {CATEGORIES.map((item) => (
         <CategoryBox
           key={item.label}
           label={item.label}

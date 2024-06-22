@@ -1,6 +1,6 @@
 'use client'
 import { Button } from '@/components/Button'
-import { categories } from '@/components/categories/Categories'
+import { CATEGORIES } from '@/components/categories/Categories'
 import { CategoryInput } from '@/components/categories/CategoryInput'
 import Container from '@/components/Container'
 import Heading from '@/components/Heading'
@@ -96,7 +96,7 @@ export default function UploadPage() {
           <hr />
           <div className='grid gird-cols-1 md:gird-cols-2 gap-3 max-h-[50vh] overflow-y-auto'>
             {/* Category */}
-            {categories.map((item) => (
+            {CATEGORIES.map((item) => (
               <div key={item.label} className='col-span-1'>
                 <CategoryInput
                   onClick={(category) => setCustomValue('category', category)}

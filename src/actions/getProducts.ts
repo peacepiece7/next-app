@@ -29,7 +29,6 @@ export default async function getProducts(params: IProductsParams) {
     /**
      * https://www.prisma.io/docs/orm/prisma-client/queries/pagination
      */
-
     const totalItems = await prisma.product.count({ where: query })
     const products = await prisma.product.findMany({
       where: query,
@@ -45,6 +44,7 @@ export default async function getProducts(params: IProductsParams) {
       totalItems,
     }
   } catch (error: any) {
+    console.error(error)
     throw new Error(error)
   }
 }
