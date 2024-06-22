@@ -5,6 +5,8 @@ import getCurrentUser from '@/actions/getCurrentUser'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/service/nextAuth'
 import Script from 'next/script'
+import { ToastContainer } from 'react-toastify'
+import { ToastProvider } from '@/providers/ToastProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,7 +29,12 @@ export default async function RootLayout({
       /> */}
       <body className={inter.className}>
         <NavBar currentUser={session?.user!} />
-        <div>{children}</div>
+        <ToastProvider />
+        <div>
+          {/* <SwrProdvider>{children}</SwrProdvider> */}
+
+          {children}
+        </div>
       </body>
     </html>
   )

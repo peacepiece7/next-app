@@ -1,11 +1,12 @@
-import { TUser } from '@/types'
+import { User } from '@prisma/client'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
+import { toast } from 'react-toastify'
 
 interface IUseFavorite {
   productId: string
-  currentUser?: TUser | null
+  currentUser?: User | null
 }
 
 export const useFavorite = ({ productId, currentUser }: IUseFavorite) => {

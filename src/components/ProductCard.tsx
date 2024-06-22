@@ -2,20 +2,19 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { HeartButton } from './HeartButton'
-import { TUser } from '@/types'
 import { fromNow } from '@/helpers/dayjs'
+import { User, Product } from '@prisma/client'
 
-type TProduct = any
 interface ProductCardProps {
-  data: TProduct
-  currentUser: TUser
+  product: Product
+  currentUser: User
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ data, currentUser }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, currentUser }) => {
   const router = useRouter()
   return (
     <div
-      onClick={() => router.push(`/products/${data.id}`)}
+      onClick={() => router.push(`/products/${product.id}`)}
       className='col-span-1 cursor-pointer group'
     >
       <div className='flex flex-col w-full gap-2'>
@@ -24,20 +23,20 @@ const ProductCard: React.FC<ProductCardProps> = ({ data, currentUser }) => {
             fill
             sizes='auto'
             className='object-cover w-full h-full transition group-hover:scale-110'
-            src={data.image}
+            src={product.imageSrc}
             alt='Listing'
           />
           <div className='absolute top-3 right-3'>
-            <HeartButton product={data} currentUser={currentUser} />
+            <HeartButton productId={product.id} currentUser={currentUser} />
           </div>
-          <div className='text-lg font-semibold'>{data.title}</div>
-          <div className='font-light text-neutral-500'>{data.category}</div>
+          <div className='text-lg font-semibold'>{product.title}</div>
+          <div className='font-light text-neutral-500'>{product.category}</div>
           <div className='flex flex-row items-center justify-between gap-1'>
             <div className='font-semibold'>
-              {data.price}
+              {product.price}
               <span className='font-light'>원</span>
             </div>
-            <div>{fromNow(data.createdAt)}</div>
+            <div>{fromNow(product.createdAt)}</div>
           </div>
         </div>
       </div>

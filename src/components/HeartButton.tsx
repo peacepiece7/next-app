@@ -1,12 +1,12 @@
 'use client'
 
 import { useFavorite } from '@/hooks/useFavorite'
-import { TUser } from '@/types'
+import { User } from '@prisma/client'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 
 interface HeartButtonProps {
   productId: string
-  currentUser?: TUser | null
+  currentUser?: User
 }
 
 export const HeartButton: React.FC<HeartButtonProps> = ({
