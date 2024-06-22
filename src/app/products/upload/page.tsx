@@ -6,18 +6,23 @@ import Container from '@/components/Container'
 import Heading from '@/components/Heading'
 import ImageUpload from '@/components/ImageUpload'
 import { Input } from '@/components/Input'
+import axios from 'axios'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { FieldValues, useForm } from 'react-hook-form'
 const KakaoMap = dynamic(() => import('@/components/KakaoMap'), { ssr: false })
 
 export default function UploadPage() {
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const {
     register,
     setValue,
     watch,
     formState: { errors },
+    handleSubmit,
+    reset,
   } = useForm<FieldValues>({
     defaultValues: {
       title: '',
@@ -39,10 +44,21 @@ export default function UploadPage() {
     setValue(id, value)
   }
 
+  const onSubmit = handleSubmit((data) => {
+    setIsLoading(true)
+    axios
+      .post('/api/products', data)
+      .then((res) => {
+        router.push(`/products/${res.data.id}`)
+        reset()
+      })
+      .finally(() => setIsLoading(false))
+  })
+
   return (
     <Container>
       <div className='max-w-screen-lg mx-auto'>
-        <form className='flex flex-col gap-8' onSubmit={() => {}}>
+        <form className='flex flex-col gap-8' onSubmit={onSubmit}>
           <Heading title='Product Upload' subtitle='upload your product' />
           <ImageUpload
             onChange={(value) => setCustomValue('imageSrc', value)}
