@@ -26,18 +26,18 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, currentUser }) => {
             src={product.imageSrc}
             alt='Listing'
           />
-          <div className='absolute top-3 right-3'>
-            <HeartButton productId={product.id} currentUser={currentUser} />
+        </div>
+        <div className='absolute top-3 right-3'>
+          <HeartButton productId={product.id} currentUser={currentUser} />
+        </div>
+        <div className='text-lg font-semibold'>{product.title}</div>
+        <div className='font-light text-neutral-500'>{product.category}</div>
+        <div className='flex flex-row items-center justify-between gap-1'>
+          <div className='font-semibold'>
+            {product.price}
+            <span className='font-light'>원</span>
           </div>
-          <div className='text-lg font-semibold'>{product.title}</div>
-          <div className='font-light text-neutral-500'>{product.category}</div>
-          <div className='flex flex-row items-center justify-between gap-1'>
-            <div className='font-semibold'>
-              {product.price}
-              <span className='font-light'>원</span>
-            </div>
-            <div>{fromNow(product.createdAt)}</div>
-          </div>
+          <div>{fromNow(product.createdAt)}</div>
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
+'use client'
 import { User } from '@prisma/client'
 import axios from 'axios'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { useMemo } from 'react'
 import { toast } from 'react-toastify'
 
@@ -33,7 +34,7 @@ export const useFavorite = ({ productId, currentUser }: IUseFavorite) => {
         request = axios.post(`/api/favorites/${productId}`)
       }
       await request
-      router.reload()
+      router.refresh()
       toast.success('성공적으로 처리되었습니다.')
     } catch (err) {}
     toast.error('문제가 발생했습니다.')

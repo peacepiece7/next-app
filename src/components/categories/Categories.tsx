@@ -1,3 +1,4 @@
+'use client'
 import { useSearchParams } from 'next/navigation'
 import { FaSkiing } from 'react-icons/fa'
 import { GiBoatFishing, GiIsland, GiWindmill } from 'react-icons/gi'

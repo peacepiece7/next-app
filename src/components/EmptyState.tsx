@@ -1,6 +1,7 @@
-import { useRouter } from 'next/router'
+'use client'
 import Heading from './Heading'
 import { Button } from './Button'
+import { useRouter } from 'next/navigation'
 
 interface EmptyStateProps {
   title?: string

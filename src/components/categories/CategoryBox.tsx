@@ -9,7 +9,7 @@ interface CategoryBoxProps {
 }
 
 export const CategoryBox: React.FC<CategoryBoxProps> = ({
-  icon,
+  icon: Icon,
   label,
   path,
   selected,

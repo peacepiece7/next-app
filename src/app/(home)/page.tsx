@@ -1,5 +1,6 @@
 import getCurrentUser from '@/actions/getCurrentUser'
 import getProducts, { IProductsParams } from '@/actions/getProducts'
+import { Categories } from '@/components/categories/Categories'
 import Container from '@/components/Container'
 import { EmptyState } from '@/components/EmptyState'
 import { FloatingButton } from '@/components/FloatingButton'
@@ -19,6 +20,7 @@ const Home = async ({ searchParams }: HomeProps) => {
   return (
     <Container>
       {/* categories */}
+      <Categories />
       {products.data.length === 0 ? (
         <EmptyState showReset />
       ) : (
