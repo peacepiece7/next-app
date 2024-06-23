@@ -3,7 +3,7 @@
 import Image from 'next/image'
 
 interface AvatarProps {
-  src: string
+  src: string | null
 }
 
 export const Avatar: React.FC<AvatarProps> = ({ src }) => {

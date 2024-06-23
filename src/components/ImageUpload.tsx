@@ -9,7 +9,6 @@ interface ImageUploadProps {
   value: string
 }
 
-const uploadPreset = 'oimvse4k'
 export default function ImageUpload({ onChange, value }: ImageUploadProps) {
   const handleUpload = (result: any) => {
     onChange(result.info.secure_url)
@@ -18,7 +17,7 @@ export default function ImageUpload({ onChange, value }: ImageUploadProps) {
   return (
     <CldUploadWidget
       onSuccess={handleUpload}
-      uploadPreset={uploadPreset}
+      uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET as string}
       options={{
         maxFiles: 1,
       }}
