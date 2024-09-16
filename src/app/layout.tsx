@@ -21,6 +21,9 @@ export default async function RootLayout({
   const currentUser = await getCurrentUser()
   const session = await getServerSession(authOptions)
 
+  console.log('SESSION : ', session)
+  console.log('CURRENT USER : ', currentUser)
+
   return (
     <html lang='en'>
       {/* <Script

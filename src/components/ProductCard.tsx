@@ -12,6 +12,7 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, currentUser }) => {
   const router = useRouter()
+
   return (
     <div
       onClick={() => router.push(`/products/${product.id}`)}

@@ -15,21 +15,20 @@ interface IChatProps {
 }
 
 export const Chat = ({ receiver, currentUser, setLayout }: IChatProps) => {
+  const messageEndRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [])
   if (!receiver || !currentUser) return <div className='w-full h-full'></div>
 
   const conversation = currentUser?.conversations.find((conversation) =>
     conversation.users.find((user) => user.id === receiver.receiverId)
   )
 
-  const messageEndRef = useRef<HTMLDivElement>(null)
-
-  const scrollTobottom = () => {
+  const scrollToBottom = () => {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
-
-  useEffect(() => {
-    scrollTobottom()
-  }, [])
 
   return (
     <div className='w-full'>
